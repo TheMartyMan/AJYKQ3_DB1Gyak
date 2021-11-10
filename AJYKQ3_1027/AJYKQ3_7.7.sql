@@ -1,0 +1,6 @@
+CREATE DATABASE AJYKQ3;
+USE AJYKQ3;
+CREATE TABLE termekek (tkod INT PRIMARY KEY, nev VARCHAR(50) NOT NULL, ear INT CHECK (EAR > 0), kategoria CHAR(20));
+ALTER TABLE termekek ADD (szin CHAR(20));
+DROP TABLE termekek;
+DELETE FROM termekek WHERE kategoria IS NULL;

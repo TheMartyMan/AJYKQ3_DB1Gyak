@@ -1,0 +1,62 @@
+CREATE TABLE Oktato
+(
+neptunkod varchar (6) NOT NULL,
+nev varchar (20) NOT NULL,
+tanszek varchar (20) NOT NULL,
+
+PRIMARY KEY (neptunkod)
+);
+
+
+
+
+
+CREATE TABLE Targy
+(
+kod varchar (9) NOT NULL,
+kredit int NOT NULL,
+megnevezes varchar (20) NOT NULL,
+neptunkod varchar (6) NOT NULL,
+
+
+PRIMARY KEY (kod),
+FOREIGN KEY (neptunkod) REFERENCES Oktato (neptunkod)
+);
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE Hallgato
+(
+neptunkod varchar (6) NOT NULL,
+nev varchar (20) NOT NULL,
+tankor varchar (20) NOT NULL,
+szuldatum varchar (10) NOT NULL,
+eletkor int NOT NULL,
+irszam varchar (4) NOT NULL,
+varos varchar (20) NOT NULL,
+utca varchar (20) NOT NULL,
+hsz varchar (10) NOT NULL,
+
+PRIMARY KEY (neptunkod)
+);
+
+
+CREATE TABLE hallgat
+(
+felev int NOT NULL,
+vizsgajegy int NOT NULL,
+kod varchar (9) NOT NULL,
+neptunkod varchar (6) NOT NULL,
+
+
+FOREIGN KEY (kod) REFERENCES Targy (kod),
+FOREIGN KEY (neptunkod) REFERENCES Hallgato (neptunkod)
+);
+

@@ -1,0 +1,53 @@
+CREATE TABLE Film (
+FilmID int PRIMARY KEY NOT NULL,
+MoziID int, FOREIGN KEY (MoziID) REFERENCES Mozi (MoziID),
+Mufaj varchar(20),
+Hossz int,
+Cim varchar(30),
+Korhatar int
+);
+
+
+
+CREATE TABLE Vevo (
+VevoID int PRIMARY KEY NOT NULL,
+FilmID int, FOREIGN KEY (FilmID) REFERENCES Film (FilmID),
+Nem varchar(30),
+Nev varchar(30),
+Telefonszam int,
+Emailcim varchar(30)
+);
+
+
+
+CREATE TABLE Bankkartya (
+BankkartyaID int PRIMARY KEY NOT NULL,
+VevoID int, FOREIGN KEY (VevoID) REFERENCES Vevo (VevoID),
+Tipus varchar(20),
+Kartyaszam varchar(30),
+Datum date
+);
+
+
+
+CREATE TABLE Jegy (
+JegyID int PRIMARY KEY NOT NULL,
+VevoID int, FOREIGN KEY (VevoID) REFERENCES Vevo (VevoID),
+Datum date,
+Ar int
+);
+
+
+
+CREATE TABLE Kedvezmeny (
+Kedvezmeny varchar(30),
+JegyID int, FOREIGN KEY (JegyID) REFERENCES Jegy (JegyID)
+);
+
+
+
+CREATE TABLE Kapcsolat (
+Filmkezdes varchar(20),
+FilmID int, FOREIGN KEY (FilmID) REFERENCES Film (FilmID),
+MoziID int, FOREIGN KEY (MoziID) REFERENCES Mozi(MoziID)
+);

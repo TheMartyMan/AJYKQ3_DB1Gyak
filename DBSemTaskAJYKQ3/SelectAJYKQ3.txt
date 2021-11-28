@@ -1,0 +1,95 @@
+Egyszerű:
+
+
+
+
+1. Helyek ahol vetítenek 3D-ben:
+
+
+
+	SELECT Hely, Fajta FROM Mozi WHERE Fajta='3D';
+
+
+
+2. OTP Bankosok kártyaszáma:
+
+
+	
+	SELECT Tipus, Kartyaszam FROM Bankkartya WHERE Tipus='OTP Bank';
+	
+
+
+3. A Horror műfajú filmek:
+
+
+
+	SELECT Cim, Mufaj FROM Film WHERE Mufaj='Horror';
+
+
+
+4. A 120 percnél nagyobb hosszúságú filmek:
+
+
+
+	SELECT Cim, Hossz FROM Film WHERE Hossz>120;
+
+
+
+5. Férfiak e-mail címe:
+
+
+
+	SELECT Nev, Nem, Emailcim FROM Vevo WHERE Nem='Férfi';
+	
+	
+	
+	
+	
+	
+	
+
+Bonyolult:
+
+
+
+
+6. Minden Családi kedvezménnyel rendelkező vevő filmjének áránál drágább filmek címei:
+
+
+
+	SELECT Nev, Cim, Ar FROM Kedvezmeny INNER JOIN Jegy ON Kedvezmeny.JegyID=Jegy.JegyID INNER JOIN
+	Vevo ON Jegy.VevoID=Vevo.VevoID INNER JOIN Film ON Vevo.FilmID=Film.FilmID WHERE Ar>ALL (SELECT Ar FROM Jegy INNER JOIN
+	Kedvezmeny ON Jegy.JegyID=Kedvezmeny.JegyID WHERE Kedvezmeny='Családi');
+
+
+
+7. Akiknek 3000Ft-nál többe kerül a jegye:
+
+
+
+	SELECT Nev, Ar FROM Jegy INNER JOIN Vevo ON Jegy.VevoID=Vevo.VevoID WHERE Ar>3000;
+
+
+
+8. Akik OTP Bankosok, ABC sorrendben:
+
+
+
+	SELECT Nev, Tipus FROM Bankkartya INNER JOIN Vevo ON Bankkartya.VevoID=Vevo.VevoID WHERE Tipus='OTP Bank' ORDER BY Nev;
+
+
+
+9. Budapest Bankosok, akik Sci-Fit vagy Romantikus filmet néztek:
+
+
+
+	SELECT Nev, Tipus, Mufaj FROM Bankkartya INNER JOIN
+	Vevo ON Bankkartya.VevoID=Vevo.VevoID INNER JOIN
+	Film ON Vevo.FilmID=Film.FilmID WHERE Mufaj='Romantikus' OR Mufaj='Sci-Fi' AND Tipus='Budapest Bank';
+
+
+
+10. Akik Akciófilmet néznek, és jegyük ára 3000Ft vagy az alatt volt:
+
+
+	SELECT Nev, Mufaj, Ar FROM Jegy INNER JOIN Vevo ON Jegy.VevoID=Vevo.VevoID INNER JOIN Film ON Vevo.FilmID=Film.FilmID WHERE Mufaj='Akció' AND Ar<=3000;
